@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Tutorial.Web.Model;
+using Tutorial.Web.Services;
 
 namespace Tutorial.Web
 {
@@ -12,7 +14,9 @@ namespace Tutorial.Web
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvc();
             services.AddSingleton<IWelcomeService, WelcomeServie>();
+            services.AddScoped<IRepository<Student>, InMemoryRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -26,6 +30,10 @@ namespace Tutorial.Web
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseExceptionHandler();//非开发
             }
             //app.Use(next =>
             //{
@@ -47,6 +55,13 @@ namespace Tutorial.Web
             //app.UseWelcomePage(new WelcomePageOptions {
             //    Path = "/welcome"
             //});
+            //app.UseDefaultFiles();//打开默认首页
+            app.UseStaticFiles();//静态文件伺服
+
+            //app.UseFileServer();//包含上面两个
+
+            app.UseMvcWithDefaultRoute();
+
             app.Run(async (context) =>
             {
                 var welcome = welcomeServie.getMessage();
