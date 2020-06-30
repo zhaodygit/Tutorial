@@ -16,7 +16,7 @@ namespace Tutorial.Web
         {
             services.AddMvc();
             services.AddSingleton<IWelcomeService, WelcomeServie>();
-            services.AddScoped<IRepository<Student>, InMemoryRepository>();
+            services.AddSingleton<IRepository<Student>, InMemoryRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

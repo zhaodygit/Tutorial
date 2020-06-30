@@ -1,0 +1,15 @@
+﻿@using Tutorial.Web.Model;
+@model Student
+
+<h1>创建学生</h1>
+
+<form method="post">
+
+    <input asp-for="FirstName" />
+    <input asp-for="LastName" />
+    <input asp-for="BirthDate" type="date" />
+    <select asp-for="Gender" asp-items="Html.GetEnumSelectList<Gender>()">
+       
+    </select>
+    <button type="submit" name="save">保存</button>
+</form>

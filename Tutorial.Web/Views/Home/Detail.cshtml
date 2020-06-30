@@ -12,7 +12,12 @@
     <title>Detail</title>
 </head>
 <body>
-    <h1>@Model.FirstName @Model.LastName</h1>
+    <h1>学生信息</h1>
+    <h2>@Model.FirstName @Model.LastName</h2>
+    <br />
+    性别:@Model.Gender
+    <br />
+    出生日期:@Model.BirthDate.ToString("yyyy-MM-dd")
     <a asp-action="Index">返回Home</a>
 </body>
 </html>

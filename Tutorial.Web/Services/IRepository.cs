@@ -9,5 +9,6 @@ namespace Tutorial.Web.Services
     {
         IEnumerable<T> GetAll();
         T GeById(int id);
+        T Add(T newModel);
     }
 }

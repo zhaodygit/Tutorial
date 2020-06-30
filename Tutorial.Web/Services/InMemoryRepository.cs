@@ -42,5 +42,13 @@ namespace Tutorial.Web.Services
         {
             return _students.FirstOrDefault(student => student.Id == id);
         }
+
+        public Student Add(Student newModel)
+        {
+            var maxId = _students.Max(x => x.Id);
+            newModel.Id = maxId + 1;
+            _students.Add(newModel);
+            return newModel;
+        }
     }
 }

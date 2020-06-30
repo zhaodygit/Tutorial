@@ -45,9 +45,29 @@ namespace Tutorial.Web.Controllers
             var student = _repository.GeById(id);
             if (student == null)
             {
-                return RedirectToAction("index");
+                return RedirectToAction(nameof(Index));
             }
             return View(student);
+        }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(StudentCreateViewModel student)
+        {
+            var newStudent = new Student
+            {
+                FirstName = student.FirstName,
+                LastName = student.LastName,
+                BirthDate = student.BirthDate,
+                Gender = student.Gender
+            };
+            var newModel =_repository.Add(newStudent);
+            return RedirectToAction(nameof(Detail), new { id = newModel.Id });
         }
     }
 }

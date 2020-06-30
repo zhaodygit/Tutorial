@@ -2,16 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Tutorial.Web.Model;
 
-namespace Tutorial.Web.Model
+namespace Tutorial.Web.ViewModel
 {
-    public class Student
+    public class StudentCreateViewModel
     {
-        public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime BirthDate { get; set; }
         public Gender Gender { get; set; }
-
     }
 }
