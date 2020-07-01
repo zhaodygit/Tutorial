@@ -57,17 +57,25 @@ namespace Tutorial.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Create(StudentCreateViewModel student)
         {
-            var newStudent = new Student
+            if (ModelState.IsValid)
             {
-                FirstName = student.FirstName,
-                LastName = student.LastName,
-                BirthDate = student.BirthDate,
-                Gender = student.Gender
-            };
-            var newModel =_repository.Add(newStudent);
-            return RedirectToAction(nameof(Detail), new { id = newModel.Id });
+                var newStudent = new Student
+                {
+                    FirstName = student.FirstName,
+                    LastName = student.LastName,
+                    BirthDate = student.BirthDate,
+                    Gender = student.Gender
+                };
+                var newModel = _repository.Add(newStudent);
+                return RedirectToAction(nameof(Detail), new { id = newModel.Id });
+            }
+
+            ModelState.AddModelError(string.Empty, "model level error!");
+            return View();
+
         }
     }
 }
