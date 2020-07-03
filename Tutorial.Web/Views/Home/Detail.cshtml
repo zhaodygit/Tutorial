@@ -1,17 +1,6 @@
-﻿@model Tutorial.Web.Model.Student
+﻿@model Student
 
-@{
-    Layout = null;
-}
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Detail</title>
-</head>
-<body>
     <h1>学生信息</h1>
     <h2>@Model.FirstName @Model.LastName</h2>
     <br />
@@ -19,5 +8,4 @@
     <br />
     出生日期:@Model.BirthDate.ToString("yyyy-MM-dd")
     <a asp-action="Index">返回Home</a>
-</body>
-</html>
+>
