@@ -4,7 +4,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Logging;
+using System.IO;
 using Tutorial.Web.Data;
 using Tutorial.Web.Model;
 using Tutorial.Web.Services;
@@ -72,6 +74,11 @@ namespace Tutorial.Web
             //});
             //app.UseDefaultFiles();//打开默认首页
             app.UseStaticFiles();//静态文件伺服
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                RequestPath = "/node_modules",
+                FileProvider = new PhysicalFileProvider(Path.Combine(env.ContentRootPath, "node_modules"))
+            });
 
             //app.UseFileServer();//包含上面两个
 

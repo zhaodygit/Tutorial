@@ -4,9 +4,22 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
+
+    
+    <environment include="Development">
+        <link href="~/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    </environment>
+    <environment exclude="Development">
+        <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.0.0-alpha1/css/bootstrap.css" rel="stylesheet"
+              asp-fallback-href="~/node_modules/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only"
+              asp-fallback-test-property="position"
+              asp-fallback-test-value="absolute">
+    </environment>
+
 </head>
 <body>
-    <h1>1233444</h1>
+    <h1>Student</h1>
     <div>
         @RenderBody()
     </div>
@@ -14,7 +27,25 @@
     <div>
         @RenderSection("bottom", false)
     </div>
-    @await Component.InvokeAsync("Welcome")
+
     <vc:welcome></vc:welcome>
+    <!--非开发环境-->
+    <environment exclude="Development">
+        <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"
+                asp-fallback-src="~/node_modules/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery"></script>
+        <script src="https://cdn.bootcdn.net/ajax/libs/jquery-validate/1.19.2/jquery.validate.js"
+                asp-fallback-src="~/node_modules/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.validator"></script>
+        <script src="https://cdn.bootcdn.net/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.js"
+                asp-fallback-src="~/node_modules/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery  && window.jQuery.validator && window.jQuery.validator.unobtrusive58"></script>
+    </environment>
+
+    <environment include="Development">
+        <script src="~/node_modules/jquery/dist/jquery.min.js"></script>
+        <script src="~/node_modules/jquery-validation/dist/jquery.validate.min.js"></script>
+        <script src="~/node_modules/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>
+    </environment>
 </body>
 </html>
