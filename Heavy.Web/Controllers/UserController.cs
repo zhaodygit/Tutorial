@@ -43,13 +43,15 @@ namespace Heavy.Web.Controllers
             var user = new ApplicationUser
             {
                 UserName = userAddViewModel.UserName,
-                Email = userAddViewModel.Emial
+                Email = userAddViewModel.Emial,
+                IdCardNo = userAddViewModel.IdCardNo,
+                BirthDate = userAddViewModel.BirthDate
             };
             var result = await _userManger.CreateAsync(user, userAddViewModel.Password);
 
             if (result.Succeeded)
             {
-                return RedirectToAction("Index", await _userManger.Users.ToArrayAsync());
+                return RedirectToAction("Index");
             }
             else
             {
@@ -78,13 +80,49 @@ namespace Heavy.Web.Controllers
             {
                 ModelState.AddModelError(string.Empty, "用户找不到");
             }
-            return View("Index", await _userManger.Users.ToListAsync());
+            return RedirectToAction("Index");
         }
 
         public async Task<IActionResult> EditUser(string id)
         {
             var user = await _userManger.FindByIdAsync(id);
-            return View(user);
+            if (user == null)
+            {
+                ModelState.AddModelError(string.Empty, "用户找不到");
+            }
+            var updateUser = new UserUpdateViewModel
+            {
+                Id = user.Id,
+                Emial = user.Email,
+                UserName = user.UserName,
+                IdCardNo = user.IdCardNo,
+                BirthDate = user.BirthDate
+            };
+            return View(updateUser);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditUser(UserUpdateViewModel userUpdateViewModel)
+        {
+            var user = await _userManger.FindByIdAsync(userUpdateViewModel.Id);
+            if (user != null)
+            {
+                user.Email = userUpdateViewModel.Emial;
+                user.BirthDate = userUpdateViewModel.BirthDate;
+                user.IdCardNo = userUpdateViewModel.IdCardNo;
+
+                var result = await _userManger.UpdateAsync(user);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index");
+                }
+                ModelState.AddModelError(string.Empty, "删除用户发生错误");
+            }
+            else
+            {
+                ModelState.AddModelError(string.Empty, "用户找不到");
+            }
+            return RedirectToAction("Index");
         }
     }
 }
