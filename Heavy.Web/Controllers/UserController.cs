@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Heavy.Web.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Administrators")]
     public class UserController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManger;
@@ -33,6 +33,11 @@ namespace Heavy.Web.Controllers
             return View();
         }
 
+        /// <summary>
+        /// 再用户管理中,如果用户名称和邮箱不一致将无法登录 原因AspNetUsers表中NormalizedEmail字段值是用户名的大写将无法登录,改未邮箱大写就可以登录
+        /// </summary>
+        /// <param name="userAddViewModel"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<IActionResult> AddUser(UserAddViewModel userAddViewModel)
         {
@@ -44,11 +49,12 @@ namespace Heavy.Web.Controllers
             {
                 UserName = userAddViewModel.UserName,
                 Email = userAddViewModel.Emial,
+                NormalizedUserName = userAddViewModel.Emial.ToUpper(),
                 IdCardNo = userAddViewModel.IdCardNo,
                 BirthDate = userAddViewModel.BirthDate
             };
             var result = await _userManger.CreateAsync(user, userAddViewModel.Password);
-
+            
             if (result.Succeeded)
             {
                 return RedirectToAction("Index");
@@ -110,7 +116,7 @@ namespace Heavy.Web.Controllers
                 user.Email = userUpdateViewModel.Emial;
                 user.BirthDate = userUpdateViewModel.BirthDate;
                 user.IdCardNo = userUpdateViewModel.IdCardNo;
-
+                user.NormalizedUserName = userUpdateViewModel.Emial.ToUpper();
                 var result = await _userManger.UpdateAsync(user);
                 if (result.Succeeded)
                 {
