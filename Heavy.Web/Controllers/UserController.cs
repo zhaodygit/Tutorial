@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Heavy.Web.Data;
 using Heavy.Web.Models;
 using Heavy.Web.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -96,14 +97,19 @@ namespace Heavy.Web.Controllers
             {
                 ModelState.AddModelError(string.Empty, "用户找不到");
             }
+            var claims = await _userManger.GetClaimsAsync(user);
             var updateUser = new UserUpdateViewModel
             {
                 Id = user.Id,
                 Emial = user.Email,
                 UserName = user.UserName,
                 IdCardNo = user.IdCardNo,
-                BirthDate = user.BirthDate
+                BirthDate = user.BirthDate,
+                Claims = claims.Select(x => x.Value).ToList()
             };
+
+           
+
             return View(updateUser);
         }
 
@@ -129,6 +135,22 @@ namespace Heavy.Web.Controllers
                 ModelState.AddModelError(string.Empty, "用户找不到");
             }
             return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> ManageClaims(string id)
+        {
+            var user = await _userManger.FindByIdAsync(id);
+            if (user == null)
+            {
+                ModelState.AddModelError(string.Empty, "用户找不到");
+                return RedirectToAction("Index");
+            }
+            var vm = new ManageClaimsViewModel
+            {
+                UserId = id,
+                AllCliams = ClaimTypes.AllClaimTypeList
+            };
+            return View();
         }
     }
 }

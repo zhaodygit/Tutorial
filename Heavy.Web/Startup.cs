@@ -50,6 +50,12 @@ namespace Heavy.Web
                 ;
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("仅限管理员", policy => policy.RequireRole("Administrators"));
+                options.AddPolicy("编辑", policy => policy.RequireClaim("Edit","Edit Role"));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
