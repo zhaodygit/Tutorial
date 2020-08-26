@@ -12,7 +12,8 @@ using Microsoft.EntityFrameworkCore;
 namespace Heavy.Web.Controllers
 {
     //[Authorize(Roles = "Administrators")]
-    [Authorize(Policy  = "仅限管理员")]
+    //[Authorize(Policy  = "仅限管理员")]
+    [Authorize(Policy = "编辑2")]
     public class RoleController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;

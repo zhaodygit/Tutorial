@@ -14,6 +14,8 @@ using Heavy.Web.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Heavy.Web.Models;
+using Heavy.Web.Auth;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Heavy.Web
 {
@@ -47,15 +49,29 @@ namespace Heavy.Web
                 })
                 .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<ApplicationDbContext>()
-                ;
+                .AddDefaultTokenProviders();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("仅限管理员", policy => policy.RequireRole("Administrators"));
-                options.AddPolicy("编辑", policy => policy.RequireClaim("Edit","Edit Role"));
+                options.AddPolicy("编辑", policy => policy.RequireClaim("Edit Role"));
+                options.AddPolicy("编辑1", policy => policy.RequireAssertion(context =>
+                {
+                    if (context.User.HasClaim(x => x.Type == "Edit User"))
+                        return true;
+                    return false;
+                }));
+                options.AddPolicy("编辑2", policy => policy.AddRequirements(
+                    new EmailRequirement("Email"),
+                    new QualifiedUserRequirement()));
+
             });
+
+            services.AddSingleton<IAuthorizationHandler, EmailHandler>();
+            services.AddSingleton<IAuthorizationHandler, CanEditAlbumHandler>();
+            services.AddSingleton<IAuthorizationHandler, AdministratorsHandler>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

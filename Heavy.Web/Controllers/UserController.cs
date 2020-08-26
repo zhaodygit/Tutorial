@@ -13,7 +13,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Heavy.Web.Controllers
 {
-    [Authorize(Roles = "Administrators")]
+    //[Authorize(Roles = "Administrators")]
+    [Authorize(Policy = "编辑")]
     public class UserController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManger;
@@ -150,7 +151,33 @@ namespace Heavy.Web.Controllers
                 UserId = id,
                 AllCliams = ClaimTypes.AllClaimTypeList
             };
-            return View();
+            return View(vm);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ManageClaims(ManageClaimsViewModel vm)
+        {
+            var user = await _userManger.FindByIdAsync(vm.UserId);
+            if (user == null)
+            {
+                return RedirectToAction("Index");
+            }
+
+            var claim = new IdentityUserClaim<string>
+            {
+                ClaimType = vm.ClaimId,
+                ClaimValue = vm.ClaimId
+            };
+            user.Claims.Add(claim);
+
+            var result = await _userManger.UpdateAsync(user);
+            if (result.Succeeded)
+            {
+                return RedirectToAction("EditUser", new { id = vm.UserId });
+            }
+
+            ModelState.AddModelError(string.Empty, "编辑用户Claims时发生错误");
+            return View(vm);
         }
     }
 }
