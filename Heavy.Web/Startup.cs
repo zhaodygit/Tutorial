@@ -16,6 +16,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Heavy.Web.Models;
 using Heavy.Web.Auth;
 using Microsoft.AspNetCore.Authorization;
+using Heavy.Web.Services;
 
 namespace Heavy.Web
 {
@@ -68,6 +69,13 @@ namespace Heavy.Web
                     new QualifiedUserRequirement()));
 
             });
+
+            services.AddDbContext<HeavyContext>(options =>
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+            });
+
+            services.AddScoped<IAlbumService, AlbumEfService>();
 
             services.AddSingleton<IAuthorizationHandler, EmailHandler>();
             services.AddSingleton<IAuthorizationHandler, CanEditAlbumHandler>();
