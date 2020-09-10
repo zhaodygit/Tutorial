@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace Heavy.Web.ViewModels
 {
     public class UserAddViewModel
     {
+        //[BindNever]禁止绑定值
         [Required]
         [Display(Name = "用户名")]
         public string UserName { get; set; }
@@ -32,5 +34,14 @@ namespace Heavy.Web.ViewModels
         [DataType(DataType.Date)]
         public DateTime BirthDate { get; set; }
 
+        public RoleAddViewModel Role { get; set; }
+
+        public AnthorUserViewModel AnthorUser { get; set; }
+    }
+
+    public class AnthorUserViewModel
+    {
+        public string UserName { get; set; }
+        public string  Email { get; set; }
     }
 }

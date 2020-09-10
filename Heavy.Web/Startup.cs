@@ -17,6 +17,8 @@ using Heavy.Web.Models;
 using Heavy.Web.Auth;
 using Microsoft.AspNetCore.Authorization;
 using Heavy.Web.Services;
+using Newtonsoft.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace Heavy.Web
 {
@@ -91,6 +93,9 @@ namespace Heavy.Web
             services.AddMvc(options=> {
                 options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
             });
+
+
+      
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

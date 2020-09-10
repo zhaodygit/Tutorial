@@ -1,4 +1,5 @@
-﻿using System.Text.Encodings.Web;
+﻿using System.Collections.Generic;
+using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Heavy.Web.Models;
 using Heavy.Web.Services;
@@ -137,7 +138,7 @@ namespace Heavy.Web.Controllers
 
         // POST: Album/Delete/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public async Task<ActionResult> Delete(int id, IFormCollection collection)
         {
             var model = await _albumService.GetByIdAsync(id);
@@ -157,5 +158,33 @@ namespace Heavy.Web.Controllers
                 return View();
             }
         }
+
+        public ActionResult List()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult List(List<string> items)
+        {
+            return View();
+        }
+
+        public ActionResult ListModel()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult ListModel(List<SomeModel> items)
+        {
+            return View();
+        }
+    }
+
+    public class SomeModel
+    {
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
     }
 }

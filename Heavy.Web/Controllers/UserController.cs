@@ -39,9 +39,11 @@ namespace Heavy.Web.Controllers
         /// 再用户管理中,如果用户名称和邮箱不一致将无法登录 原因AspNetUsers表中NormalizedEmail字段值是用户名的大写将无法登录,改未邮箱大写就可以登录
         /// </summary>
         /// <param name="userAddViewModel"></param>
+        /// [Bind]
+        /// [Bind("AnthorUser")]
         /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> AddUser(UserAddViewModel userAddViewModel)
+        public async Task<IActionResult> AddUser([Bind]UserAddViewModel userAddViewModel)
         {
             if (!ModelState.IsValid)
             {

@@ -41,6 +41,28 @@
             <span class="invalid" asp-validation-for="BirthDate"></span>
         </div>
     </div>
+    @*<div class="form-group row">
+            <label asp-for="Role.RoleName" class="col-sm-2"></label>
+            <div class="col-sm-10">
+                <input class="form-control" asp-for="Role.RoleName" />
+                <span class="invalid" asp-validation-for="Role.RoleName"></span>
+            </div>
+        </div>*@
+    <div class="form-group row">
+        <label asp-for="AnthorUser.UserName" class="col-sm-2"></label>
+        <div class="col-sm-10">
+            <input class="form-control" asp-for="AnthorUser.UserName" />
+            <span class="invalid" asp-validation-for="AnthorUser.UserName"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label asp-for="AnthorUser.Email" class="col-sm-2"></label>
+        <div class="col-sm-10">
+            <input class="form-control" asp-for="AnthorUser.Email" />
+            <span class="invalid" asp-validation-for="AnthorUser.Email"></span>
+        </div>
+    </div>
+
     <div class="invalid" asp-validation-summary="ModelOnly"></div>
 
     <button type="submit" class="btn btn-primary">提交</button>

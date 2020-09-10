@@ -49,6 +49,13 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Album" asp-action="Index">Album</a>
                         </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="Album" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">AlbumList</a>
+                            <div class="dropdown-menu" aria-labelledby="Album">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Album" asp-action="List">数组</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Album" asp-action="ListModel">数组对象</a>
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </div>
