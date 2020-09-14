@@ -77,6 +77,8 @@
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+        <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+        <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
     </environment>
     <environment exclude="Development">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
@@ -90,6 +92,18 @@
                 asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
                 crossorigin="anonymous"
                 integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o">
+        </script>
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.17.0/jquery.validate.min.js"
+                asp-fallback-src="~/lib/jquery-validation/dist/jquery.validate.js"
+                asp-fallback-test="window.jQuery && window.jQuery.validator"
+                integrity="sha384-rZfj/ogBloos6wzLGpPkkOr/gpkBNLZ6b6yLy4o+ok+t/SAKlL5mvXLr0OXNi1Hp"
+                crossorigin="anonymous">
+        </script>
+        <script src="https://cdn.bootcss.com/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.js"
+                asp-fallback-src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"
+                asp-fallback-test="window.jQuery && window.jQuery.validator && window.jQuery.validator.unobtrusive"
+                integrity="sha384-C8hjioqadbXfCfVhnT6NUWCL1hD9kTjwIhQ+c5Q/fVyXwav3uPly3e/0PN/X8Yd9"
+                crossorigin="anonymous">
         </script>
     </environment>
     <script src="~/js/site.js" asp-append-version="true"></script>
