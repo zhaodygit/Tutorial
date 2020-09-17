@@ -19,6 +19,7 @@ using Microsoft.AspNetCore.Authorization;
 using Heavy.Web.Services;
 using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json;
+using Heavy.Web.Filters;
 
 namespace Heavy.Web
 {
@@ -92,6 +93,10 @@ namespace Heavy.Web
 
             services.AddMvc(options=> {
                 options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+                //下面三种实现都一下 习惯第三种
+                //options.Filters.Add(new LogResourceFilter());
+                //options.Filters.Add(typeof(LogAsyncResourceFilter));
+                options.Filters.Add<LogResourceFilter>();
             });
 
 

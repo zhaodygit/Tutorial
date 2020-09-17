@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc;
 using Heavy.Web.Models;
 using Microsoft.Extensions.Logging;
 using Heavy.Web.Data;
+using Heavy.Web.Filters;
 
 namespace Heavy.Web.Controllers
 {
+    [LogResourceFilter]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -18,6 +20,8 @@ namespace Heavy.Web.Controllers
         {
             this._logger = logger;
         }
+
+        
         public IActionResult Index()
         {
             _logger.LogInformation(MyLogEventIds.HomePage,"Vsisiting Home Index...");
