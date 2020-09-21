@@ -23,7 +23,7 @@ namespace Heavy.Web
                 .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
                 .Enrich.FromLogContext()
                 .WriteTo.Console()
-                .WriteTo.File(Path.Combine("Logs","log.txt"), rollingInterval: RollingInterval.Minute)
+                .WriteTo.File(Path.Combine("Logs","log.txt"), rollingInterval: RollingInterval.Day)
                 .CreateLogger();
             //CreateWebHostBuilder(args).Build().Run();
             var host = CreateWebHostBuilder(args).Build();

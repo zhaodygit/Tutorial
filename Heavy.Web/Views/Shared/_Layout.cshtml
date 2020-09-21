@@ -66,7 +66,10 @@
         <main role="main" class="pb-3">
             @RenderBody()
 
-            @await Component.InvokeAsync("InternetStatus")
+            <cache expires-after="@TimeSpan.FromSeconds(30)">
+                @await Component.InvokeAsync("InternetStatus")
+            </cache>
+           
         </main>
     </div>
 
